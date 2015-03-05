@@ -1,11 +1,43 @@
-# Thumbtack-Slot-Machine
-This is a coding challenge provided by Thumbtack.com 
-You may use standard libraries like jQuery, Underscore, Backbone, and/or Angular.
+@import "./tools";
+//pages;
+@import "./main-page";
+//general css
+@media screen and (max-width: 40em) {
+	h1,h2,h3,h4,h5,h6{
+		font-size: 80%;
+	}
+}
 
-Your slot machine should have three reels:
 
-  The first reel has a coffee maker, a teapot, and an espresso machine.
-  The second reel has a coffee filter, a tea strainer, and an espresso tamper.
-  The third reel has coffee grounds, loose tea, and ground espresso beans.
 
-When the lever is pulled (you can simulate this with the click of a button), the slot machine goes into action. Each reel spins and randomly stops on one of the three options. If the user is lucky, the three reels will line up and she will be rewarded with a tasty hot beverage. Your solution should show the user what beverage she's won. For example, if the reels show coffee maker, coffee filter, and coffee grounds, the user wins a cup of coffee.
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 200px;
+    background: @color-primary-4;
+    color: white;
+    font-size: .5em;
+}
+#main-content {
+    position: relative;
+    min-height: 777px;
+    width: 100%;
+}
+.header-wrapper {
+    min-height: 60px;
+    line-height: 60px;
+    background-color: gray;
+    font-size: 2em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    h2 {
+        text-align: center;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        font-weight: normal;
+    }
+}

@@ -12,10 +12,6 @@
 		"consolidate" : "*",
 		"express"     : "*",
 		"restler"     : "*",
-		"winston"     : "*",
-		"body-parser" : "*",
-		"method-override": "*",
-		"router"      : "*"
-
+		"winston"     : "*"
 	}
 }
