@@ -16,3 +16,9 @@ notes:
 To start the server you need to install node.js and in the command line run:
 
 	node app.js
+
+links:
+------
+Helpful links
+
+	http://jsfiddle.net/DnTX6/
