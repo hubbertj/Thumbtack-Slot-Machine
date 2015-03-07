@@ -1,14 +1,30 @@
-define([],function() {
+define([
+    thumbtack.viewRoot + 'slotview/slotview-machine-view',
+    thumbtack.viewRoot + 'slotview/slotview-reel-view',
+    thumbtack.modelRoot + 'slotview-model'
+], function(
+    SlotviewMachineView,
+    SlotviewReelView,
+    SlotviewModel) {
     var SlotViewMain = {
+        mainContent: null,
 
-        init: function(options){
+        init: function(options) {
             _.extend(this, options);
-            console.log("this is where we will create our views");
+            this.createMachineView();
+            this.createReels();
         },
+        createMachineView: function() {
+            
+            var slotviewMachineView = new SlotviewMachineView({
+                el: ".somthinerer",
+                model: new Backbone.Model(),
+            }).render();
 
-        createViews: function(){
-            console.log("this is where we will create our views");
-        }  
+        },
+        createReels: function() {
+
+        }
     };
     return SlotViewMain;
 });

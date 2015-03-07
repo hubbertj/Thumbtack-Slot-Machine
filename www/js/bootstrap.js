@@ -6,6 +6,10 @@
     });
 })(jQuery);
 
+require.config({
+    baseUrl: "js/",
+});
+
 //Starts our app.
 require(["app"], function(App) {
     App.boot();

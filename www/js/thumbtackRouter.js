@@ -1,5 +1,7 @@
 define([], function() {
     var ThumbtackRouter = Backbone.Router.extend({
+        mainContent: '#main-content',
+        defaultPage: 'slotview',
 
         routes: {
             "": "defaultRoute",
@@ -8,25 +10,19 @@ define([], function() {
         },
 
         defaultRoute: function() {
-            // this.gotoPage('slotview');
-            console.log("do somthing");
+            this.goToPage(this.defaultPage);
         },
 
         slotview: function() {
-            console.log("go to slotsview");
-        },
-        goHello: function(){
-            console.log("go to hello");
+             this.goToPage('slotview');
         },
 
-        gotoPage: function(page) {
-            // var pageNavgation = thumbtack.viewRoot + '/' + page + '/' + page + '-main';
+        goToPage: function(page) {
+            var pageNavgation = thumbtack.viewRoot + page + '/' + page + '-main';
 
-            // require([pageNavgation], function(Page) {
-            //     Page.init();
-            // });
-
-            this.navigate(page, {trigger: true});
+            require([pageNavgation], function(Page) {
+                Page.init(this.mainContent);
+            });
         }
     });
     return ThumbtackRouter;
