@@ -21,7 +21,7 @@ define([], function() {
             var pageNavgation = thumbtack.viewRoot + page + '/' + page + '-main';
             this.setPageDefaults(page);
             require([pageNavgation], $.proxy(function(Page) {
-                Page.init({
+                Page.initialize({
                     mainContent: this.mainContent
                 });
             }, this));

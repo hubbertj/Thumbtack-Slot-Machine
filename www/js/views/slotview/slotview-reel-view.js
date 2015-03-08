@@ -1,15 +1,25 @@
-define([],function() {
-    var SlotViewMain = {
+define(['util/view', ],
+    function(View) {
+        var SlotViewReelView = View.extend({
+            el: null,
+            mainContent: null,
+            model: null,
+            template: null,
 
-        mainContent: null,
+            //TODO: make a lib which I can call for all the
+            // slotview reels to animate the reels 
 
-        init: function(options){
-            _.extend(this, options);
-        },
+            initialize: function(options) {
+                _.extend(this, options);
+            },
 
-        createViews: function(){
-            console.log("this is where we will create our views");
-        }  
-    };
-    return SlotViewMain;
-});
+            render: function() {
+                this.$el.html(this.template(this.model.toJSON()));
+            },
+
+            spinCompeleted: function(evt){
+                this.trigger('completed:spin', evt);
+            }
+        });
+        return SlotViewReelView;
+    });

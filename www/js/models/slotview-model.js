@@ -1,16 +1,15 @@
-define([],function() {
-    var SlotViewMain = {
+define(['util/model'],
+    function(Model) {
 
-        mainContent: null,
+    var SlotViewMachineModel = Model.extend({
+        urlRoot: null,
 
-        init: function(options){
-            _.extend(this, options);
+        defaults: {
             
-        },
+            value: null,
+            spinNumber: null
+        }
+    });
 
-        createViews: function(){
-            console.log("this is where we will create our views");
-        }  
-    };
-    return SlotViewMain;
+    return SlotViewMachineModel;
 });
