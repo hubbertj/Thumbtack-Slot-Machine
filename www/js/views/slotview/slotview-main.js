@@ -7,6 +7,7 @@ define([
     SlotviewReelView,
     SlotviewModel) {
     var SlotViewMain = {
+
         mainContent: null,
 
         init: function(options) {
@@ -14,17 +15,25 @@ define([
             this.createMachineView();
             this.createReels();
         },
+
         createMachineView: function() {
             
             var slotviewMachineView = new SlotviewMachineView({
-                el: ".somthinerer",
-                model: new Backbone.Model(),
+                el: this.mainContent,
+                model: new Backbone.Model()
             }).render();
 
         },
+
         createReels: function() {
 
-        }
+        },
+
+        startSpin: function() {
+
+        },
+
+
     };
     return SlotViewMain;
 });

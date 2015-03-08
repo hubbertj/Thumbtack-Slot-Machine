@@ -1,22 +1,22 @@
 define(['util/view',
-    'text!/views/slotview/slot-machine-tmpl.html'],
+        'text!templates/slotview/slot-machine-tmpl.html'
+    ],
     function(View,
-            Template) {
+        Template) {
         var SlotviewMachineView = View.extend({
-
-            template: _.template(Template),
+            el: null,
             model: null,
+            template: _.template(Template),
 
-            initialize: function(options){
+
+            initialize: function(options) {
                 _.extend(this, options);
-                // this.model.on('change', this.render(), this);
-                // this.model.on('add', this.render(), this);
-                // this.model.on('remove', this.render(), this);
+                // this.model.bind('change', this.render(), this);
+
             },
 
             render: function() {
-                console.log(this.template);
-                console.log('this is where I would draw my view');
+                this.$el.html(this.template(this.model.toJSON()));
                 return this;
             },
 

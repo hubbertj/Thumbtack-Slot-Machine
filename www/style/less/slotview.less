@@ -1,0 +1,30 @@
+div#slotview-page {
+    div.machine-view-wrapper {
+        padding: 50px 100px 50px 100px;
+        background: lightgray;
+        border: 1px solid black;
+        div.machine-view-content {
+            position: relative;
+            border: 1px solid blue;
+            min-height: 400px;
+        }
+        div[id*="reel"] {
+            position: absolute;
+            border: 1px solid green;
+            margin: auto;
+            height: 380px;
+            width: 250px;
+            top: 5px;
+        }
+        div#reel-left {
+            left: 10px;
+        }
+        div#reel-middle {
+            left: 0;
+            right: 0;
+        }
+        div#reel-right {
+            right: 10px;
+        }
+    }
+}

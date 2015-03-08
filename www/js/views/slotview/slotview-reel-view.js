@@ -5,7 +5,6 @@ define([],function() {
 
         init: function(options){
             _.extend(this, options);
-            
         },
 
         createViews: function(){

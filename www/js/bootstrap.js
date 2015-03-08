@@ -6,8 +6,12 @@
     });
 })(jQuery);
 
+//configure required js;
 require.config({
     baseUrl: "js/",
+    paths:{
+    	text: 'libs/text'	
+    }
 });
 
 //Starts our app.
