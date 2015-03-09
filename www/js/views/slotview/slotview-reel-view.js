@@ -7,12 +7,21 @@ define(['util/view', ],
             model: null,
             template: null,
 
-            topReelp: 2,
-            middleReelp: 51.3,
-            bottomReelp: 100.6,
+            defaultTopReelp: 25.5,
+            defaultMiddleReelp: 77.5,
+            defaultBottomReelp: 129.5,
 
-            //TODO: make a lib which I can call for all the
-            // slotview reels to animate the reels 
+            defaultLeftp: 5,
+            defaultWidthp: 290,
+            defaultHeightp: 50,
+
+            currentTopReelp: null,
+            currrentMiddleReelp: null,
+            currentBottomReelp: null,
+
+            spinnerColor1: '#660000',
+            spinnerColor2: '#FF0000',
+            spinnerColor3: '#FFB2B2',
 
             initialize: function(options) {
                 _.extend(this, options);
@@ -21,51 +30,106 @@ define(['util/view', ],
             render: function() {
                 this.$el.html(_.template(this.template));
                 this.myCanvas = this.$('canvas')[0].getContext("2d");
-                setInterval($.proxy(this.drawReel, this), 10);
+                this.setDefaults();
+                // this.startSpin();
+            },
+            setDefaults: function() {
+                this.createReels();
             },
 
-            drawReel: function() {
+            startSpin: function() {
+                setInterval($.proxy(this.spinAction, this), 10);
+            },
 
-                var leftp = 5;
-                var widthp = 290;
-                var heightp = 47.3;
+            spinAction: function() {
+                this.clearCanvas();
 
-                this.myCanvas.clearRect(0,0,300,300);
-
-                //draw image 1
-                this.myCanvas.fillStyle = "rgba(255, 230, 0, .5)";
+                 //draw image 1
+                this.myCanvas.fillStyle = this.spinnerColor1;
                 this.myCanvas.beginPath();
-                this.myCanvas.rect(leftp, this.topReelp, widthp, heightp);
+                this.myCanvas.rect(this.defaultLeftp, this.currentTopReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
                 //draw image 2
-                this.myCanvas.fillStyle = "rgba(230, 255, 0, .5)";
+                this.myCanvas.fillStyle = this.spinnerColor2;
                 this.myCanvas.beginPath();
-                this.myCanvas.rect(leftp, this.middleReelp, widthp, heightp);
+                this.myCanvas.rect(this.defaultLeftp, this.currrentMiddleReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
                 //draw image 3
-                this.myCanvas.fillStyle = "rgba(200, 255, 0, .5)";
+                this.myCanvas.fillStyle = this.spinnerColor3;
                 this.myCanvas.beginPath();
-                this.myCanvas.rect(leftp, this.bottomReelp, widthp, heightp);
+                this.myCanvas.rect(this.defaultLeftp, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                this.topReelp++;
-                if(this.topReelp > 150){
-                    this.topReelp = -10;
+                this.currentTopReelp += 1;
+                if (this.currentTopReelp > 150) {
+                    this.currentTopReelp = (this.currrentMiddleReelp - this.defaultHeightp - 2);
                 }
 
-                this.middleReelp++;
-                if(this.middleReelp > 150){
-                    this.middleReelp = -10;
+                this.currrentMiddleReelp += 1;
+                if (this.currrentMiddleReelp > 150) {
+                    this.currrentMiddleReelp = (this.currentBottomReelp - this.defaultHeightp - 2);
                 }
 
-                this.bottomReelp++;
-                if(this.bottomReelp > 150){
-                    this.bottomReelp = -10;
+                this.currentBottomReelp += 1;
+                if (this.currentBottomReelp > 150) {
+                    this.currentBottomReelp = (this.currentTopReelp - this.defaultHeightp - 2);
+                }
+            },
+            
+            //clear canvas;
+            clearCanvas: function() {
+                this.myCanvas.clearRect(0, 0, 300, 300);
+            },
+
+            createReels: function() {
+                this.clearCanvas();
+
+                //We keep track where the current position is at;
+                this.currentTopReelp = this.defaultTopReelp;
+                this.currrentMiddleReelp = this.defaultMiddleReelp;
+                this.currentBottomReelp = this.defaultBottomReelp;
+
+
+
+                //draw image 1
+                this.myCanvas.fillStyle = this.spinnerColor1;
+                this.myCanvas.beginPath();
+                this.myCanvas.rect(this.defaultLeftp, this.defaultTopReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.closePath();
+                this.myCanvas.fill();
+
+                //draw image 2
+                this.myCanvas.fillStyle = this.spinnerColor2;
+                this.myCanvas.beginPath();
+                this.myCanvas.rect(this.defaultLeftp, this.defaultMiddleReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.closePath();
+                this.myCanvas.fill();
+
+                //draw image 3
+                this.myCanvas.fillStyle = this.spinnerColor3;
+                this.myCanvas.beginPath();
+                this.myCanvas.rect(this.defaultLeftp, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.closePath();
+                this.myCanvas.fill();
+
+                this.topReelp += 1;
+                if (this.topReelp > 150) {
+                    this.topReelp = (this.middleReelp - heightp - 2);
+                }
+
+                this.middleReelp += 1;
+                if (this.middleReelp > 150) {
+                    this.middleReelp = (this.bottomReelp - heightp - 2);
+                }
+
+                this.bottomReelp += 1;
+                if (this.bottomReelp > 150) {
+                    this.bottomReelp = (this.topReelp - heightp - 2);
                 }
             },
 

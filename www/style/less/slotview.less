@@ -1,4 +1,6 @@
 div#slotview-page {
+    max-width: @siteMaxWidth;
+    margin: 40px auto 0 auto;
     div.machine-view-wrapper {
         padding: 50px 100px 50px 100px;
         background: lightgray;
@@ -6,7 +8,7 @@ div#slotview-page {
         border-radius: 20px;
         div.machine-view-content {
             position: relative;
-            border: 1px solid blue;
+            border: 5px solid black;
             min-height: 400px;
             border-radius: 20px;
         }
@@ -14,11 +16,14 @@ div#slotview-page {
             position: absolute;
             border: 1px solid black;
             margin: auto;
-            height: 380px;
+            height: 400px;
             width: 25%;
-            top: 10px;
-            canvas{
-                height: 100%;
+            overflow: hidden;
+            background-color: black;
+            canvas {
+                position: relative;
+                top: -200px;
+                min-height: 600px;
                 width: 100%;
             }
         }

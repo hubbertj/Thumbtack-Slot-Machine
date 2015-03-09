@@ -3,15 +3,15 @@
 @import "./slotview";
 @import "./header";
 //general css
-@media screen and (max-width: 40em) {
-    h1, h2, h3, h4, h5, h6 {
-        font-size: 80%;
-    }
+body{
+    background-color: black;
 }
+
 footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+    min-width: @siteMinWidth;
     min-height: 200px;
     background: @color-primary-4;
     color: white;
@@ -21,6 +21,7 @@ article#main-content {
     position: relative;
     min-height: 1000px;
     width: 100%;
+    min-width: @siteMinWidth;
     background-color: black;
 }
 section.content {
