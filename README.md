@@ -22,3 +22,4 @@ links:
 Helpful links
 
 	http://jsfiddle.net/DnTX6/
+	http://billmill.org/static/canvastutorial/index.html -- great example of how to use canvas tag
