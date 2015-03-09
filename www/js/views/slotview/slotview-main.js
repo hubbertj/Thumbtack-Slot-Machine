@@ -49,7 +49,7 @@ define([
                 _.each(this.reelelm, function(value, index, arr) {
                     var slotviewReelView = new SlotviewReelView({
                         el: '#' + value.id,
-                        template: value.template,
+                        template: '<canvas></canvas>',
                         model: new SlotViewReelModel()
                     }).on('completed:spin', this.recordResults).render();
                 }, this);
