@@ -4,9 +4,13 @@ define([
         thumbtack.modelRoot + 'slotview-model',
         thumbtack.modelRoot + 'slotreel-model',
 
-        'text!templates/slotview/slot-machine-reel-left.html',
-        'text!templates/slotview/slot-machine-reel-middle.html',
-        'text!templates/slotview/slot-machine-reel-right.html'
+        'image!imgs/coffeMaker.png',
+        'image!imgs/teaPot.gif',
+        'image!imgs/espressoMachine.jpg',
+
+        'image!imgs/espressoTamper.jpeg',
+        'image!imgs/coffeeFilter.gif',
+        'image!imgs/teaStrainer.jpg'
     ],
     function(
         SlotviewMachineView,
@@ -14,22 +18,26 @@ define([
         SlotViewMachineModel,
         SlotViewReelModel,
 
-        SlotReelLeftTemplate,
-        SlotReelMiddleTemplate,
-        SlotReelRightTemplate) {
+        CoffeMakerImage,
+        TeaPotImage,
+        EspressoMachineImage,
+
+        EspressoTamper,
+        CoffeeFilter,
+        TeaStrainer) {
         var SlotViewMain = {
 
             mainContent: null,
 
             reelelm: [{
                 id: 'reel-left',
-                template: _.template(SlotReelLeftTemplate)
+                images: {top: TeaPotImage, middle: CoffeMakerImage, bottom: EspressoMachineImage}
             }, {
                 id: 'reel-middle',
-                template: _.template(SlotReelMiddleTemplate)
+                images: {top: EspressoTamper, middle: CoffeeFilter, bottom: TeaStrainer}
             }, {
                 id: 'reel-right',
-                template: _.template(SlotReelRightTemplate)
+                images: {top: TeaPotImage, middle: CoffeMakerImage, bottom: EspressoMachineImage}
             }],
 
             initialize: function(options) {
@@ -37,6 +45,7 @@ define([
                 this.createMachineView();
                 this.createReels();
             },
+
 
             createMachineView: function() {
                 var slotviewMachineView = new SlotviewMachineView({
@@ -47,10 +56,13 @@ define([
 
             createReels: function() {
                 _.each(this.reelelm, function(value, index, arr) {
+
                     var slotviewReelView = new SlotviewReelView({
                         el: '#' + value.id,
                         template: '<canvas></canvas>',
-                        model: new SlotViewReelModel()
+                        model: new SlotViewReelModel(),
+                        imagesCollection: value.images,
+                        intervalSpeed: Math.floor((Math.random() * 10) + 1)
                     }).on('completed:spin', this.recordResults).render();
                 }, this);
             },

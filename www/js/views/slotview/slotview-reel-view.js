@@ -11,7 +11,7 @@ define(['util/view', ],
             defaultMiddleReelp: 420,
             defaultBottomReelp: 610,
 
-            defaultLeftp: 3,
+            defaultLeftp: 0,
             defaultWidthp: 293,
             defaultHeightp: 180,
 
@@ -20,9 +20,8 @@ define(['util/view', ],
             currentBottomReelp: null,
 
             intervalSpeed: 5,
-            base_image: null,
-            base_image2: null,
-            base_image3: null,
+
+            imagesCollection: null,
 
             spinnerColor1: '#660000',
             spinnerColor2: '#FF0000',
@@ -39,24 +38,13 @@ define(['util/view', ],
                 this.$('canvas')[0].height = 720;
                 this.myCanvas = this.$('canvas')[0].getContext("2d");
                 this.setDefaults();
-                // this.startSpin();
+                this.startSpin();
 
                 return this;
             },
 
             setDefaults: function() {
                 this.createReels();
-
-                this.base_image = new Image();
-                this.base_image.src = 'imgs/coffeMaker.png';
-
-                this.base_image2 = new Image();
-                this.base_image2.src = 'imgs/teaPot.gif';
-
-                this.base_image3 = new Image();
-                this.base_image3.src = 'imgs/espressoMachine.jpg';
-
-
             },
 
             startSpin: function() {
@@ -74,10 +62,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                this.myCanvas.drawImage(this.base_image2, 75, this.currentTopReelp + 25, 147, 100);
-
-
-
+                this.myCanvas.drawImage(this.imagesCollection.top, 75, this.currentTopReelp + 25, 147, 100);
 
                 //draw image 2
                 this.myCanvas.fillStyle = this.spinnerColor2;
@@ -86,8 +71,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                this.myCanvas.drawImage(this.base_image, 85, this.currentMiddleReelp, 147, this.defaultHeightp);
-
+                this.myCanvas.drawImage(this.imagesCollection.middle, 85, this.currentMiddleReelp, 147, this.defaultHeightp);
 
                 //draw image 3
                 this.myCanvas.fillStyle = this.spinnerColor3;
@@ -96,7 +80,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                this.myCanvas.drawImage(this.base_image3, 5, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.drawImage(this.imagesCollection.bottom, 0, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
 
                 this.currentTopReelp += this.intervalSpeed;
                 if (this.currentTopReelp > 700) {
@@ -138,8 +122,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                //TODO: pass in the img so this doesn't happen;
-                // this.myCanvas.drawImage(this.base_image2, 75, this.defaultTopReelp + 25, 147, 100);
+                this.myCanvas.drawImage(this.imagesCollection.top, 75, this.defaultTopReelp + 25, 147, 100);
 
 
                 //draw image 2
@@ -149,8 +132,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                //TODO: pass in the img so this doesn't happen;
-                // this.myCanvas.drawImage(this.base_image, 85, this.defaultMiddleReelp, 147, this.defaultHeightp);
+                this.myCanvas.drawImage(this.imagesCollection.middle, 85, this.defaultMiddleReelp, 147, this.defaultHeightp);
 
 
                 //draw image 3
@@ -160,8 +142,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                //TODO: pass in the img so this doesn't happen;
-                // this.myCanvas.drawImage(this.base_image3, 5, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.drawImage(this.imagesCollection.bottom, 5, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
 
             },
 
