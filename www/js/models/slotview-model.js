@@ -5,9 +5,9 @@ define(['util/model'],
         urlRoot: null,
 
         defaults: {
-            
-            value: null,
-            spinNumber: null
+            reelleft: null,
+            reelmiddle: null,
+            reelright: null
         }
     });
 

@@ -2,10 +2,14 @@ define(['util/view', ],
     function(View) {
         var SlotViewReelView = View.extend({
             el: null,
+            id: null,
             mainContent: null,
             myCanvas: null,
             model: null,
             template: null,
+
+            cHeigth: 720,
+            cWidth: 300,
 
             defaultTopReelp: 230,
             defaultMiddleReelp: 420,
@@ -14,6 +18,7 @@ define(['util/view', ],
             defaultLeftp: 3,
             defaultWidthp: 293,
             defaultHeightp: 180,
+            reelMap: null,
 
             currentTopReelp: null,
             currentMiddleReelp: null,
@@ -21,6 +26,8 @@ define(['util/view', ],
 
             intervalSpeed: 5,
             spinTimer: null,
+
+            payLineMark: 509,
 
             imagesCollection: null,
 
@@ -35,12 +42,10 @@ define(['util/view', ],
             render: function() {
                 this.$el.html(_.template(this.template));
 
-                this.$('canvas')[0].width = 300;
-                this.$('canvas')[0].height = 720;
+                this.$('canvas')[0].width = this.cWidth;
+                this.$('canvas')[0].height = this.cHeigth;
                 this.myCanvas = this.$('canvas')[0].getContext("2d");
                 this.setDefaults();
-                // this.startSpin();
-
                 return this;
             },
 
@@ -48,14 +53,34 @@ define(['util/view', ],
                 this.createReels();
             },
 
+            getPayLineItem: function(payline) {
+                if (payline < (this.currentTopReelp + this.defaultHeightp) && payline >= this.currentTopReelp) {
+                    return this.reelMap["top"];
+                } else if (payline < (this.currentMiddleReelp + this.defaultHeightp) && payline >= this.currentMiddleReelp) {
+                    return this.reelMap["middle"];
+                } else if (payline < (this.currentBottomReelp + this.defaultHeightp) && payline >= this.currentBottomReelp) {
+                    return this.reelMap["bottom"];
+                } else {
+                    //recursion to just find the closet reel;
+                    this.getPayLineItem(payline + 10);
+                }
+            },
+            
+           
+
             startSpin: function() {
                 this.spinTimer = setInterval($.proxy(this.spinAction, this), 10);
             },
-            
-            spinStop: function(){
-                if(this.spinTimer){
-                   clearInterval(this.spinTimer);     
+
+            spinStop: function() {
+                if (this.spinTimer) {
+                    clearInterval(this.spinTimer);
                 }
+                var winOutput = this.getPayLineItem(this.payLineMark);
+                var idOut = this.id.replace("-", "");
+
+                this.model.set(this.id.replace("-", ""), winOutput);
+                this.trigger('completed:spin', winOutput, idOut);
             },
 
             spinAction: function() {
@@ -68,8 +93,8 @@ define(['util/view', ],
                 this.myCanvas.rect(this.defaultLeftp, this.currentTopReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
-
                 this.myCanvas.drawImage(this.imagesCollection.top, 75, this.currentTopReelp + 25, 147, 100);
+
 
                 //draw image 2
                 this.myCanvas.fillStyle = this.spinnerColor2;
@@ -77,7 +102,6 @@ define(['util/view', ],
                 this.myCanvas.rect(this.defaultLeftp, this.currentMiddleReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
-
                 this.myCanvas.drawImage(this.imagesCollection.middle, 85, this.currentMiddleReelp, 147, this.defaultHeightp);
 
                 //draw image 3
@@ -86,26 +110,20 @@ define(['util/view', ],
                 this.myCanvas.rect(this.defaultLeftp, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
-
                 this.myCanvas.drawImage(this.imagesCollection.bottom, 5, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
 
                 this.currentTopReelp += this.intervalSpeed;
-                if (this.currentTopReelp > 700) {
-                    this.currentTopReelp = (this.currentMiddleReelp - (this.defaultHeightp + 10));
-                    // this.currentTopReelp = 0;
-                }
-
                 this.currentMiddleReelp += this.intervalSpeed;
-                if (this.currentMiddleReelp > 700) {
+                this.currentBottomReelp += this.intervalSpeed;
+
+                if (this.currentTopReelp > this.cHeigth) {
+                    this.currentTopReelp = (this.currentMiddleReelp - (this.defaultHeightp + 10));
+                } else if (this.currentMiddleReelp > this.cHeigth) {
                     this.currentMiddleReelp = (this.currentBottomReelp - (this.defaultHeightp + 10));
-                    // this.currentMiddleReelp = 0;
+                } else if (this.currentBottomReelp > this.cHeigth) {
+                    this.currentBottomReelp = (this.currentTopReelp - (this.defaultHeightp + 10));
                 }
 
-                this.currentBottomReelp += this.intervalSpeed;
-                if (this.currentBottomReelp > 700) {
-                    this.currentBottomReelp = (this.currentTopReelp - (this.defaultHeightp + 10));
-                    // this.currentBottomReelp = 0;
-                }
             },
 
             //clear canvas;
@@ -151,10 +169,6 @@ define(['util/view', ],
 
                 this.myCanvas.drawImage(this.imagesCollection.bottom, 5, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
 
-            },
-
-            spinCompeleted: function(evt) {
-                this.trigger('completed:spin', evt);
             }
         });
         return SlotViewReelView;
