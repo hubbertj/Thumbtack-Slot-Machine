@@ -11,7 +11,7 @@ define(['util/view', ],
             defaultMiddleReelp: 420,
             defaultBottomReelp: 610,
 
-            defaultLeftp: 0,
+            defaultLeftp: 3,
             defaultWidthp: 293,
             defaultHeightp: 180,
 
@@ -20,11 +20,12 @@ define(['util/view', ],
             currentBottomReelp: null,
 
             intervalSpeed: 5,
+            spinTimer: null,
 
             imagesCollection: null,
 
-            spinnerColor1: '#660000',
-            spinnerColor2: '#FF0000',
+            spinnerColor1: '#FFFFFF',
+            spinnerColor2: '#FFFFFF',
             spinnerColor3: '#FFFFFF',
 
             initialize: function(options) {
@@ -38,7 +39,7 @@ define(['util/view', ],
                 this.$('canvas')[0].height = 720;
                 this.myCanvas = this.$('canvas')[0].getContext("2d");
                 this.setDefaults();
-                this.startSpin();
+                // this.startSpin();
 
                 return this;
             },
@@ -48,7 +49,13 @@ define(['util/view', ],
             },
 
             startSpin: function() {
-                setInterval($.proxy(this.spinAction, this), 10);
+                this.spinTimer = setInterval($.proxy(this.spinAction, this), 10);
+            },
+            
+            spinStop: function(){
+                if(this.spinTimer){
+                   clearInterval(this.spinTimer);     
+                }
             },
 
             spinAction: function() {
@@ -80,7 +87,7 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
-                this.myCanvas.drawImage(this.imagesCollection.bottom, 0, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
+                this.myCanvas.drawImage(this.imagesCollection.bottom, 5, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
 
                 this.currentTopReelp += this.intervalSpeed;
                 if (this.currentTopReelp > 700) {

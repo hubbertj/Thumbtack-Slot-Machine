@@ -28,6 +28,10 @@ define([
         var SlotViewMain = {
 
             mainContent: null,
+            listView: [],
+
+            slotviewMachineView: null,
+            
 
             reelelm: [{
                 id: 'reel-left',
@@ -48,32 +52,50 @@ define([
 
 
             createMachineView: function() {
-                var slotviewMachineView = new SlotviewMachineView({
+                this.slotviewMachineView = new SlotviewMachineView({
                     el: this.mainContent,
                     model: new SlotViewMachineModel()
-                }).render();
+                }).on('spin:start', this.spinReels, this)
+                .on('spin:stop', this.spinStop, this).render();
+            },
+
+            spinReels:function(){
+                _.each(this.listView, function(value, index){
+                    value.intervalSpeed = this.getRandomSpeed(17, 30);
+                    value.startSpin();
+                }, this);
+            },
+
+            spinStop:function(){
+                 _.each(this.listView, function(value, index){
+                    value.intervalSpeed = 0;
+                    value.spinStop();
+                }, this);
+            },
+
+            getRandomSpeed: function(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             },
 
             createReels: function() {
                 _.each(this.reelelm, function(value, index, arr) {
 
-                    var slotviewReelView = new SlotviewReelView({
+                   var slotviewReelView = new SlotviewReelView({
                         el: '#' + value.id,
                         template: '<canvas></canvas>',
                         model: new SlotViewReelModel(),
                         imagesCollection: value.images,
-                        intervalSpeed: Math.floor((Math.random() * 10) + 1)
+                        intervalSpeed: this.getRandomSpeed(17, 30)
                     }).on('completed:spin', this.recordResults).render();
+
+                   this.listView.push(slotviewReelView);
+
                 }, this);
             },
 
             recordResults: function() {
                 console.log(arguments);
-            },
-
-            startSpin: function() {
-
-            },
+            }
 
 
         };
