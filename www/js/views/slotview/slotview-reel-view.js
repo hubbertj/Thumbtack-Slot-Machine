@@ -19,13 +19,14 @@ define(['util/view', ],
             currentMiddleReelp: null,
             currentBottomReelp: null,
 
-            intervalSpeed: 2,
+            intervalSpeed: 5,
             base_image: null,
             base_image2: null,
+            base_image3: null,
 
             spinnerColor1: '#660000',
             spinnerColor2: '#FF0000',
-            spinnerColor3: '#FFB2B2',
+            spinnerColor3: '#FFFFFF',
 
             initialize: function(options) {
                 _.extend(this, options);
@@ -38,7 +39,7 @@ define(['util/view', ],
                 this.$('canvas')[0].height = 720;
                 this.myCanvas = this.$('canvas')[0].getContext("2d");
                 this.setDefaults();
-                this.startSpin();
+                // this.startSpin();
 
                 return this;
             },
@@ -51,6 +52,9 @@ define(['util/view', ],
 
                 this.base_image2 = new Image();
                 this.base_image2.src = 'imgs/teaPot.gif';
+
+                this.base_image3 = new Image();
+                this.base_image3.src = 'imgs/espressoMachine.jpg';
 
 
             },
@@ -92,6 +96,8 @@ define(['util/view', ],
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
 
+                this.myCanvas.drawImage(this.base_image3, 5, this.currentBottomReelp, this.defaultWidthp, this.defaultHeightp);
+
                 this.currentTopReelp += this.intervalSpeed;
                 if (this.currentTopReelp > 700) {
                     this.currentTopReelp = (this.currentMiddleReelp - (this.defaultHeightp + 10));
@@ -125,8 +131,6 @@ define(['util/view', ],
                 this.currentBottomReelp = this.defaultBottomReelp;
 
 
-
-
                 // draw image 1
                 this.myCanvas.fillStyle = this.spinnerColor1;
                 this.myCanvas.beginPath();
@@ -135,12 +139,7 @@ define(['util/view', ],
                 this.myCanvas.fill();
 
                 //TODO: pass in the img so this doesn't happen;
-               // this.myCanvas.drawImage(this.base_image2, 75, this.defaultTopReelp + 25, 147, 100);
-
-
-
-
-
+                // this.myCanvas.drawImage(this.base_image2, 75, this.defaultTopReelp + 25, 147, 100);
 
 
                 //draw image 2
@@ -153,12 +152,17 @@ define(['util/view', ],
                 //TODO: pass in the img so this doesn't happen;
                 // this.myCanvas.drawImage(this.base_image, 85, this.defaultMiddleReelp, 147, this.defaultHeightp);
 
+
                 //draw image 3
                 this.myCanvas.fillStyle = this.spinnerColor3;
                 this.myCanvas.beginPath();
                 this.myCanvas.rect(this.defaultLeftp, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
                 this.myCanvas.closePath();
                 this.myCanvas.fill();
+
+                //TODO: pass in the img so this doesn't happen;
+                // this.myCanvas.drawImage(this.base_image3, 5, this.defaultBottomReelp, this.defaultWidthp, this.defaultHeightp);
+
             },
 
             spinCompeleted: function(evt) {
