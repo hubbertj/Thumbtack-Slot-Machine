@@ -10,7 +10,8 @@
 require.config({
     baseUrl: "js/",
     paths:{
-    	text: 'libs/text'	
+    	text: 'libs/text',
+        image: 'libs/image'   	
     }
 });
 
