@@ -4,7 +4,7 @@ div#slotview-page {
     margin: 40px auto 0 auto;
     div.machine-view-wrapper {
         padding: 50px 100px 50px 100px;
-        background: lightgray;
+        background: @color-secondary-2-3;
         border: 1px solid black;
         border-radius: 20px;
         div.machine-view-content {
@@ -65,7 +65,8 @@ div#slotview-page {
         padding: 1em;
         margin-top: 20px;
         border-radius: 20px;
-        background: lightgray;
+        background: @color-button-panel;
+        
         ul {
             list-style-type: none;
             li {
@@ -74,9 +75,10 @@ div#slotview-page {
                 border-radius: 35px;
                 font-weight: 800;
                 background-color: white;
+                cursor: pointer;
             }
             li:hover {
-                background-color: #F8F8F8;
+                background-color: @color-button-panel-hover;
             }
             li.spin-button {
                 min-height: 50px;
@@ -85,12 +87,13 @@ div#slotview-page {
                 line-height: 50px;
                 position: absolute;
                 color: white;
-                background-color: #C13232;
+                background-color: @color-button-spin;
                 right: 20px;
                 top: 15px;
+                cursor: pointer;
             }
             li.spin-button:hover {
-                background-color: #B20000;
+                background-color: @color-button-spin-hover;
             }
         }
     }

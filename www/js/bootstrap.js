@@ -11,7 +11,11 @@ require.config({
     baseUrl: "js/",
     paths:{
     	text: 'libs/text',
-        image: 'libs/image'   	
+        image: 'libs/image',
+        views: 'views',
+        collections: 'collections',
+        models: 'models',
+        settings: '../settings',  	
     }
 });
 

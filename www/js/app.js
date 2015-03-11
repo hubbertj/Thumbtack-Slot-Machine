@@ -1,8 +1,9 @@
-//settings configurations;
+//thumbtack is my globally object if I need to define anything on that scope.
 thumbtack = {};
 thumbtack.viewRoot = 'views/';
 thumbtack.modelRoot = 'models/';
 thumbtack.collectionRoot = 'collections/';
+thumbtack.settginsRoot = '../settings/';
 
 define(["thumbtackRouter"], function(ThumbtackRouter) {
     var BootApp = {

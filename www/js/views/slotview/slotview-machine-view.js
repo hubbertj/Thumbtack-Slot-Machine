@@ -16,6 +16,12 @@ define(['util/view',
                 this.model.bind("change", this.recordResults, this);
             },
 
+            render: function() {
+                this.$el.html(this.template(this.model.toJSON()));
+                this.$('.pay-line').hide();
+                return this;
+            },
+
             payLine: function(shouldShow) {
                 if (shouldShow) {
                     this.$('.pay-line').show();
@@ -24,10 +30,9 @@ define(['util/view',
                 }
             },
 
-            render: function() {
-                this.$el.html(this.template(this.model.toJSON()));
-                this.$('.pay-line').hide();
-                return this;
+            setStopState: function(isStop) {
+                this.payLine(true);
+                this.$('.spin-button').text('Spin');
             },
 
             recordResults: function() {
@@ -46,37 +51,35 @@ define(['util/view',
                         break;
 
                     case 'Stop':
-                        this.$('.spin-button').text('Spin');
-                        this.payLine(true);
                         this.trigger('spin:stop');
                         break;
 
                     case 'Bet 500 Credits':
-                        console.log('500');
+                        console.log('bet 500');
                         break;
 
                     case 'Bet 100 Credit':
-                        console.log('100');
+                        console.log('bet 100');
                         break;
 
                     case 'Bet 200 Credit':
-                        console.log('200');
+                        console.log('bet 200');
                         break;
 
                     case 'Bet 5 Credit':
-                        console.log('5');
+                        console.log('bet 5');
                         break;
 
                     case 'Bet 2 Credit':
-                        console.log('2');
+                        console.log('bet 2');
                         break;
 
                     case 'Bet 1 Credit':
-                        console.log('1');
+                        console.log('bet 1');
                         break;
 
                 }
-                return false;
+                return true;
             }
         });
         return SlotviewMachineView;

@@ -27,6 +27,9 @@ define(['util/view', ],
             intervalSpeed: 5,
             spinTimer: null,
 
+            randomSpin: 15,
+            spinCount: 0,
+
             payLineMark: 509,
 
             imagesCollection: null,
@@ -54,33 +57,40 @@ define(['util/view', ],
             },
 
             getPayLineItem: function(payline) {
-                if (payline < (this.currentTopReelp + this.defaultHeightp) && payline >= this.currentTopReelp) {
+                //we have to account for the fact we animated out last canvas;
+                var currentTopPosition = this.currentTopReelp - this.intervalSpeed;
+                var currentMiddlePosition = this.currentMiddleReelp - this.intervalSpeed;
+                var currentBottomPosition = this.currentBottomReelp - this.intervalSpeed;
+
+                if (payline < (currentTopPosition + this.defaultHeightp) && payline >= currentTopPosition) {
                     return this.reelMap["top"];
-                } else if (payline < (this.currentMiddleReelp + this.defaultHeightp) && payline >= this.currentMiddleReelp) {
+                } else if (payline < (currentMiddlePosition + this.defaultHeightp) && payline >= currentMiddlePosition) {
                     return this.reelMap["middle"];
-                } else if (payline < (this.currentBottomReelp + this.defaultHeightp) && payline >= this.currentBottomReelp) {
+                } else if (payline < (currentBottomPosition + this.defaultHeightp) && payline >= currentBottomPosition) {
                     return this.reelMap["bottom"];
                 } else {
                     //recursion to just find the closet reel;
                     this.getPayLineItem(payline + 10);
                 }
             },
-            
-           
+
 
             startSpin: function() {
                 this.spinTimer = setInterval($.proxy(this.spinAction, this), 10);
             },
 
             spinStop: function() {
-                if (this.spinTimer) {
+                if(this.spinTimer){
                     clearInterval(this.spinTimer);
-                }
-                var winOutput = this.getPayLineItem(this.payLineMark);
-                var idOut = this.id.replace("-", "");
+                    this.spinCount = 0;
 
-                this.model.set(this.id.replace("-", ""), winOutput);
-                this.trigger('completed:spin', winOutput, idOut);
+                    var winOutput = this.getPayLineItem(this.payLineMark);
+                    var idOut = this.id.replace("-", "");
+
+                    this.model.set(idOut, winOutput);
+                    this.trigger('completed:spin', winOutput, idOut, true);
+                    this.spinTimer = null;
+                }
             },
 
             spinAction: function() {
@@ -122,6 +132,11 @@ define(['util/view', ],
                     this.currentMiddleReelp = (this.currentBottomReelp - (this.defaultHeightp + 10));
                 } else if (this.currentBottomReelp > this.cHeigth) {
                     this.currentBottomReelp = (this.currentTopReelp - (this.defaultHeightp + 10));
+                }
+
+                this.spinCount++;
+                if (this.spinCount >= this.randomSpin) {
+                    this.spinStop();
                 }
 
             },
