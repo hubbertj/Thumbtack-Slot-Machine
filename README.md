@@ -9,3 +9,13 @@ Your slot machine should have three reels:
   The third reel has coffee grounds, loose tea, and ground espresso beans.
 
 When the lever is pulled (you can simulate this with the click of a button), the slot machine goes into action. Each reel spins and randomly stops on one of the three options. If the user is lucky, the three reels will line up and she will be rewarded with a tasty hot beverage. Your solution should show the user what beverage she's won. For example, if the reels show coffee maker, coffee filter, and coffee grounds, the user wins a cup of coffee.
+
+
+notes:
+--------
+To start the server you need to install node.js and in the command line run:
+
+	node app.js 
+
+	This will start the server and just do a localhost:3000 to see the site.
+
