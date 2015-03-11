@@ -15,11 +15,7 @@ notes:
 --------
 To start the server you need to install node.js and in the command line run:
 
-	node app.js
+	node app.js 
 
-links:
-------
-Helpful links
+	This will start the server and just do a localhost:3000 to see the site.
 
-	http://jsfiddle.net/DnTX6/
-	http://billmill.org/static/canvastutorial/index.html -- great example of how to use canvas tag
