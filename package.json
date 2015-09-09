@@ -12,6 +12,7 @@
 		"consolidate" : "*",
 		"express"     : "*",
 		"restler"     : "*",
-		"winston"     : "*"
+		"winston"     : "*",
+		"less"		: "*"
 	}
 }
