@@ -1,2 +1,8 @@
+#Node
 node_modules/
+
+#Less
 css/
+
+#File System
+.DS_Store
